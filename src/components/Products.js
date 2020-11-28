@@ -34,12 +34,13 @@ const Products = () => {
             setCartItems((cartItems)=>(update(cartItems, {$splice: [[idx, 1]]})));
             setTotal(total=>total-=(price*quantity));
         },
+        
         currency: currency,
         changeCurrency: (newCurrency)=>{
             setCurrency(newCurrency);
             //update the price part of the state
             refetch();
-            
+
         }
     })
 
