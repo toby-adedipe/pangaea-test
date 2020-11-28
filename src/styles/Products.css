@@ -8,6 +8,10 @@ h1{
 }
 .products-page{
     height: 100%;
+    display: flex;
+}
+.container{
+    height: 100%;
 }
 .page-description{
     font-size: 0.8125rem;
@@ -64,6 +68,7 @@ h1{
     margin: .5rem 0;
     text-align: center;
 }
+
 @media only screen and (min-width: 768px) {
     .product-container{
         padding: 2.5rem 0.5rem;
@@ -73,6 +78,8 @@ h1{
         max-width: 70%;
     }
 }
+
+/* interchange min-width for max-width and check */
 @media only screen and (min-width: 468px) {
     .product-image{
         max-width: 50%;
