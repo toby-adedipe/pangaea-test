@@ -1,19 +1,19 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import '../styles/Cart.css';
 import '../styles/Products.css';
 import CartItems from './CartItems';
 import { ProductContext } from './context';
 
 const Cart = () => {
-    const [items, setItems] = useState([]);
     const currency = "USD";
     const { cartItems, total } = useContext(ProductContext);
-
-
 
     return (
         <div id="cart">
             <h5 className="cart-title">YOUR CART</h5>
+            <select>
+                <option>USD</option>
+            </select>
             <div className="cart-list">
                 {
                     cartItems.length>0
@@ -23,7 +23,6 @@ const Cart = () => {
                     : null
                 }
             </div>
-            
             <div className="checkout-footer">
                 <div className="footer-container">
                     <div className="subtotal-section">

@@ -3,14 +3,14 @@ import { ProductContext } from './context';
 import '../styles/CartItems.css'
 
 const CartItems = ({id, title, price, image_url, quantity}) => {
-    const { incrementQuantity, decrementQuantity } = useContext(ProductContext);
+    const { incrementQuantity, decrementQuantity, removeItem } = useContext(ProductContext);
 
 
     const currency = "USD";
     return (
         <div>
             <div className="cart-item">
-                <p className="cancel-btn">X</p>
+                <p className="cancel-btn" onClick={()=>removeItem({id, price, quantity})}>X</p>
                 <div className="left-section">
                     <div className="item-description">
                         <h6>{title}</h6>

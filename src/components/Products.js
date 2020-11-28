@@ -3,12 +3,13 @@ import update from 'immutability-helper';
 
 import { gql, useQuery } from '@apollo/client';
 import '../styles/Products.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductContext } from './context';
 
 const Products = () => {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
+    const [currency, setCurrency] = useState([]);
 
     const productContext = ({
         total: total,
@@ -28,6 +29,11 @@ const Products = () => {
             }
             setTotal(total=>total-=price);
         },
+        removeItem: ({id, price, quantity})=>{
+            const idx = cartItems.findIndex(obj=>obj.id === id);
+            setCartItems((cartItems)=>(update(cartItems, {$splice: [[idx, 1]]})));
+            setTotal(total=>total-=(price*quantity));
+        }
     })
 
     const { loading, error, data } = useQuery(gql`
@@ -41,7 +47,6 @@ const Products = () => {
         }
     `);
 
-    const currency = "USD";
     const addToCart = ({id, title, image_url, price})=>{
         if(cartItems.findIndex(obj=>obj.id === id) !== -1){
             const idx = cartItems.findIndex(obj=>obj.id === id);

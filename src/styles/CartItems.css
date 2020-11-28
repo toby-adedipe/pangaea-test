@@ -13,6 +13,9 @@
     right: 20px;
     cursor: pointer;
 }
+.left-section{
+    width: 65%;
+}
 h6{
     font-size: 13px;
 }
@@ -40,6 +43,7 @@ h6{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 35%;
 }
 .item-image{
     width: 50%;
