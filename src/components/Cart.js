@@ -1,18 +1,40 @@
-import { useContext } from 'react';
-import '../styles/Cart.css';
-import '../styles/Products.css';
+import { useContext, useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import CartItems from './CartItems';
 import { ProductContext } from './context';
+import '../styles/Cart.css';
+import '../styles/Products.css';
 
 const Cart = () => {
-    const currency = "USD";
-    const { cartItems, total } = useContext(ProductContext);
+    const { cartItems, total, currency, changeCurrency } = useContext(ProductContext);
+    const [ value, setValue ]  = useState('');
+
+    const GET_CURRENCY = gql`
+        query{
+            currency
+        }
+`
+    const { loading, error, data } = useQuery(GET_CURRENCY);
+    
+    const handleChange = (event)=>{
+        changeCurrency(event.target.value)
+    }
 
     return (
         <div id="cart">
             <h5 className="cart-title">YOUR CART</h5>
-            <select>
-                <option>USD</option>
+            <select
+                onChange={handleChange}
+            >
+                {
+                    loading
+                    ? null
+                    : error
+                        ? null
+                        : data.currency.map((curr)=>(
+                            <option key={curr} value={curr}>{curr}</option>
+                        ))
+                }
             </select>
             <div className="cart-list">
                 {

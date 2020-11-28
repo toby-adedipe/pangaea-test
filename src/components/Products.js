@@ -3,13 +3,13 @@ import update from 'immutability-helper';
 
 import { gql, useQuery } from '@apollo/client';
 import '../styles/Products.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductContext } from './context';
 
 const Products = () => {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
-    const [currency, setCurrency] = useState([]);
+    const [currency, setCurrency] = useState("USD");
 
     const productContext = ({
         total: total,
@@ -33,19 +33,33 @@ const Products = () => {
             const idx = cartItems.findIndex(obj=>obj.id === id);
             setCartItems((cartItems)=>(update(cartItems, {$splice: [[idx, 1]]})));
             setTotal(total=>total-=(price*quantity));
+        },
+        currency: currency,
+        changeCurrency: (newCurrency)=>{
+            setCurrency(newCurrency);
+            //update the price part of the state
+            refetch();
         }
     })
 
-    const { loading, error, data } = useQuery(gql`
+    const UPDATE_CURRENCY = gql`
+        query{
+            price(currency: ${currency})
+        }
+    `
+    const GET_PRODUCTS = gql`
         query{
             products{
             id,
             title,
             image_url,
-            price(currency: USD)
-            }
-        }
-    `);
+            price(currency: ${currency})
+            },
+        } 
+    `
+
+    const { loading, error, data, refetch } = useQuery(GET_PRODUCTS);
+
 
     const addToCart = ({id, title, image_url, price})=>{
         if(cartItems.findIndex(obj=>obj.id === id) !== -1){
@@ -58,7 +72,6 @@ const Products = () => {
         }       
         setTotal(total=>total+=price);
     }
-
     return (
         <ProductContext.Provider value={productContext}>
         <div className="products-page">
