@@ -39,6 +39,7 @@ const Products = () => {
             setCurrency(newCurrency);
             //update the price part of the state
             refetch();
+            
         }
     })
 
