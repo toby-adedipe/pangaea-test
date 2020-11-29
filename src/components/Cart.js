@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import CartItems from './CartItems';
 import { ProductContext } from './context';
 import '../styles/Cart.css';
 import '../styles/Products.css';
-import Back from './back.svg';
+import Back from '../images/back.svg';
 
 const Cart = () => {
     const { cartItems, total, currency, changeCurrency, updateCheck, checked, closeCart } = useContext(ProductContext);
@@ -47,7 +47,7 @@ const Cart = () => {
                     {
                         cartItems.length>0
                         ? cartItems.map(({id, title, price, image_url, quantity}) =>(
-                            <CartItems id={id} title={title} price={price} image_url={image_url} quantity={quantity}/>
+                            <CartItems key={id} id={id} title={title} price={price} image_url={image_url} quantity={quantity}/>
                         ))
                         : null
                     }

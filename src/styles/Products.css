@@ -6,6 +6,7 @@
 h1{
     font-size: 1.5rem;
 }
+
 .products-page{
     height: 100%;
     display: flex;
@@ -21,6 +22,19 @@ h1{
     background-color: #f5f5f4;
     height: 30%;
     padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.cart-icon{
+    width: 24px;
+}
+.cart-icon-container{
+    position: relative;
+}
+.cart-icon-container>p{
+    position: absolute;
+    right: -10px;
+    top: -10px;
 }
 #products-bg{
     background-color: #E2E6E3;
