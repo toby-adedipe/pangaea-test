@@ -1,13 +1,18 @@
 /* styling for cart */
-#cart{
+.cart-container{
     position: fixed;
     background-color: #F2F2EF;
-    right: 0;
+}
+.cart{
+    position: fixed;
+    background-color: #F2F2EF;
+    right: -35rem;
     width: 35rem;
     height: 100vh;
     max-width: 100%;
     z-index: 0;
     overflow-y: scroll;
+    transition: all .6s ease;
 }
 .cart-title{
     color: #696969;
@@ -15,10 +20,33 @@
     font-size: 10px;
     text-align: center;
 }
+.cart-header{
+    width: 35rem;
+    max-width: 100%;
+    position: fixed;
+    z-index: 2;
+    background-color: #F2F2EF;
+}
+.cart-header>div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.back-btn{
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 24px;
+}
+.dropdown{
+    padding: 10px 20px;
+    margin: 10px 0 10px 20px;
+}
 .cart-title{
-    margin-top: 1.25rem;
+    text-align: center;
+    margin: auto;
 }
 .cart-list{
+    padding-top: 6rem;
     padding-bottom: 15rem;
 }
 .checkout-footer{
@@ -55,6 +83,7 @@
     width: 100%;
 }
 
+
 .checkout-btn{
     display: flex;
     justify-content: center;
@@ -68,4 +97,11 @@
 
 .footer-btns{
     margin-top: 1.25rem;
+}
+#toggler{
+    display: none;
+}
+#toggler:checked ~ .cart{
+    right: 0;
+    transition: all .6s ease;
 }

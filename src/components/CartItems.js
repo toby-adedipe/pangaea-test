@@ -3,10 +3,8 @@ import { ProductContext } from './context';
 import '../styles/CartItems.css'
 
 const CartItems = ({id, title, price, image_url, quantity}) => {
-    const { incrementQuantity, decrementQuantity, removeItem } = useContext(ProductContext);
+    const { incrementQuantity, decrementQuantity, removeItem, currency } = useContext(ProductContext);
 
-
-    const currency = "USD";
     return (
         <div>
             <div className="cart-item">

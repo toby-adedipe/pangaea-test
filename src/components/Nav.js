@@ -4,7 +4,6 @@ import '../styles/Nav.css';
 const Nav = () => {
     return (
         <div>
-            
         </div>
     );
 };

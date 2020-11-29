@@ -10,6 +10,9 @@ const Products = () => {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
     const [currency, setCurrency] = useState("USD");
+    const [checked, setChecked] = useState(true);
+
+
 
     const productContext = ({
         total: total,
@@ -34,21 +37,23 @@ const Products = () => {
             setCartItems((cartItems)=>(update(cartItems, {$splice: [[idx, 1]]})));
             setTotal(total=>total-=(price*quantity));
         },
-        
         currency: currency,
         changeCurrency: (newCurrency)=>{
             setCurrency(newCurrency);
             //update the price part of the state
             refetch();
-
+        },
+        checked: checked,
+        updateCheck : (event)=>{
+            setChecked(event.target.checked);
+        },
+        closeCart: ()=>{
+            if(checked){
+                setChecked(false);
+            }
         }
     })
 
-    const UPDATE_CURRENCY = gql`
-        query{
-            price(currency: ${currency})
-        }
-    `
     const GET_PRODUCTS = gql`
         query{
             products{
@@ -59,7 +64,12 @@ const Products = () => {
             },
         } 
     `
-
+    const openCart = ()=>{
+        if(!checked){
+            setChecked(true);
+        }
+    }
+     
     const { loading, error, data, refetch } = useQuery(GET_PRODUCTS);
 
 
@@ -73,6 +83,7 @@ const Products = () => {
             setCartItems(cartItems=>cartItems.concat({id, title, image_url, price, quantity: 1}))
         }       
         setTotal(total=>total+=price);
+        openCart();
     }
     return (
         <ProductContext.Provider value={productContext}>
@@ -111,6 +122,6 @@ const Products = () => {
         </div>
         </ProductContext.Provider>
     );
-};
+    };
 
 export default Products;
